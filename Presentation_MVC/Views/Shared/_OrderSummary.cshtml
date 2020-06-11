@@ -1,0 +1,22 @@
+﻿@using Presentation_MVC.Cart
+@inject IShoppingCart ShoppingCart;
+
+<div class="card">
+    <h5 class="card-header">
+        Summary (@ShoppingCart.GetCount() items)
+    </h5>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between">
+            <p class="font-weight-bold mb-0">Subtotal</p>
+            <p class="mb-0">@ShoppingCart.GetTotalExVat().ToString("0.00") EUR</p>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <p class="font-weight-bold mb-0">VAT</p>
+            <p class="mb-0">@ShoppingCart.GetVat().ToString("0.00") EUR</p>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <p class="font-weight-bold mb-0">Total</p>
+            <p class="mb-0">@ShoppingCart.GetTotalIncVat().ToString("0.00") EUR</p>
+        </li>
+    </ul>
+</div>

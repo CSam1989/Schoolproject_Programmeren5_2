@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200311124214_qsdmflkj.cs" />
+    <Compile Remove="Migrations\20200311124214_qsdmflkj.Designer.cs" />
+    <Compile Remove="Migrations\20200312185248_test.cs" />
+    <Compile Remove="Migrations\20200312185248_test.Designer.cs" />
+    <Compile Remove="Migrations\20200314201712_Test.cs" />
+    <Compile Remove="Migrations\20200314201712_Test.Designer.cs" />
+    <Compile Remove="Migrations\20200314202007_test.cs" />
+    <Compile Remove="Migrations\20200314202007_test.Designer.cs" />
+    <Compile Remove="Migrations\20200506114546_mqsdlkjf.cs" />
+    <Compile Remove="Migrations\20200506114546_mqsdlkjf.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+  </ItemGroup>
+
+</Project>

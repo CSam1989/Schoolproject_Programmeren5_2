@@ -1,0 +1,32 @@
+<div *ngIf="itemCount === 0">
+  <button
+    mat-raised-button
+    color="primary"
+    class="w-90"
+    (click)="increment(Product)">
+    Add to cart
+  </button>
+</div>
+<div *ngIf="itemCount !== 0">
+  <mat-form-field class="addCart" [ngClass]="extraMessage ? 'w-90' : 'w-auto'">
+    <input
+      matInput
+      type="text"
+      class="form-control input-cart"
+      value="{{ itemCount }} {{ extraMessage }}"
+      disabled/>
+    <button
+      mat-raised-button
+      matPrefix
+      color="primary"
+      (click)="decrement(Product)">
+      <mat-icon>remove</mat-icon>
+    </button>
+    <button mat-button matSuffix mat-icon-button (click)="clearFromCart()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <button mat-raised-button matSuffix color="primary" (click)="increment(Product)">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-form-field>
+</div>

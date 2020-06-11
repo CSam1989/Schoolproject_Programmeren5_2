@@ -1,0 +1,44 @@
+<mat-card class="card my-2 mat-elevation-z8">
+  <mat-card-header>
+    <h3>Customer Details</h3>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content class="mt-2">
+    <mat-card-title>
+      {{ Customer.firstName | titlecase }}
+      {{ Customer.familyName | titlecase }}
+    </mat-card-title>
+    <div class="row">
+      <div class="col-6">
+        <h5>Shipping address</h5>
+        <!-- loads ng-template #shipping -->
+        <ng-container *ngTemplateOutlet="shipping"></ng-container>
+      </div>
+
+      <div class="col-6">
+        <h5>Billing address</h5>
+        <div *ngIf="Customer.streetBilling; else shipping">
+          <p>
+            {{ Customer.streetBilling | titlecase }}
+            {{ Customer.houseNrBilling }}
+            <span *ngIf="Customer.houseBusBilling">
+              /{{ Customer.houseBusBilling }}
+            </span
+            >
+          </p>
+          <p>
+            {{ Customer.postalCodeBilling }}
+            {{ Customer.cityBilling | titlecase }}
+          </p>
+        </div>
+        <ng-template #shipping>
+          <p>
+            {{ Customer.street | titlecase }} {{ Customer.houseNr }}
+            <span *ngIf="Customer.houseBus">/{{ Customer.houseBus }}</span>
+          </p>
+          <p>{{ Customer.postalCode }} {{ Customer.city | titlecase }}</p>
+        </ng-template>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

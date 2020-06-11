@@ -1,0 +1,65 @@
+<p>You have {{ shoppingCart.totalCount }} items in your shopping cart.</p>
+<div class="row" *ngIf="shoppingCart.totalCount > 0">
+  <table class="table col-md-8">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Product</th>
+      <th class="text-center">Price</th>
+      <th class="text-center">Quantity</th>
+      <th class="text-right">Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of shoppingCart.shoppingCart">
+      <td class="first align-middle">
+        <img class="photo-cart first" [src]="p.product.photoUrl">
+      </td>
+      <td class="align-middle">
+        {{ p.product.name }}
+      </td>
+      <td class="text-center align-middle">
+        {{ p.product.price | currency:'EUR' }}
+      </td>
+      <td class="text-center align-middle">
+        <div class="hideSmallScreen">
+          <app-addToCart [Product]="p.product"></app-addToCart>
+        </div>
+        <div class="showSmallScreen">
+          <p class="mt-3">
+            {{p.quantity}}
+            <button matSuffix mat-icon-button (click)="clearFromCart(p.product)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </p>
+        </div>
+      </td>
+      <td class="text-right align-middle">
+        {{ p.product.price * p.quantity | currency:'EUR' }}
+      </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="2">
+        <button
+          mat-stroked-button
+          color="primary"
+          type="button"
+          (click)="clearAll()">
+          Clear cart
+        </button>
+      </td>
+      <th></th>
+      <th></th>
+      <th class="text-right">{{ shoppingCart.totalPrice | currency:'EUR' }}</th>
+    </tr>
+    </tfoot>
+  </table>
+  <div class="col d-flex flex-column flex-md-column-reverse justify-content-end">
+    <button mat-raised-button color="primary" routerLink="/orders/create" class="w-100">
+      Place order
+    </button>
+    <app-summary [TotalPrice]="shoppingCart.totalPrice"></app-summary>
+  </div>
+</div>

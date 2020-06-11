@@ -1,0 +1,29 @@
+<mat-card class="card">
+  <mat-card-header class="d-flex justify-content-between">
+    <mat-card-title>{{ data.name }}</mat-card-title>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-header>
+  <div class="text-center">
+    <img
+      mat-card-image
+      class="photo-card-detail mat-elevation-z8 w-75"
+      [src]="data.photoUrl"
+      [alt]="'Photo of' + data.name"/>
+  </div>
+  <mat-card-content>
+    <div class="d-flex justify-content-between">
+      <mat-card-subtitle>{{ data.category }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ data.price | currency: "EUR" }}</mat-card-subtitle>
+    </div>
+    <mat-card-subtitle>
+      {{ data.description }}
+    </mat-card-subtitle>
+  </mat-card-content>
+  <div class="text-center">
+    <mat-card-actions>
+      <app-addToCart [Product]="data" extraMessage="in cart"></app-addToCart>
+    </mat-card-actions>
+  </div>
+</mat-card>

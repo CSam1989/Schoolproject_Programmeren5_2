@@ -1,0 +1,125 @@
+﻿@model Application.Orders.Queries.GetOrdersByCustomerIdQuery.OrdersByCustomerIdVm;
+
+@{
+    ViewData["Title"] = "Previous Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Previous Orders</h1>
+@if (Model.List.Count == 0)
+{
+    <h5>No Previous Orders</h5>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            <div class="mb-0 row">
+                <h6 class="col-3 text-left">Customer</h6>
+                <h6 class="col-3 text-center">Order date</h6>
+                <h6 class="col-3 text-center">OrderID</h6>
+                <h6 class="col-3 text-right">Total price</h6>
+            </div>
+        </div>
+    </div>
+
+    var i = 0;
+    foreach (var order in Model.List)
+    {
+        <div class="accordion" id="accordionOrders">
+            <div class="card">
+                <button class="card-header btn" id="heading_@i" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="true" aria-controls="collapse_@i">
+                    <div class="mb-0 row">
+                        <div class="col-3 text-left">
+                            @order.Customer.FirstName @order.Customer.FamilyName
+                        </div>
+                        <div class="col-3 text-center">
+                            @order.OrderDate.ToString("dd MMM yyyy")
+                        </div>
+                        <div class="col-3 text-center">
+                            @order.Id
+                        </div>
+                        <div class="col-3 text-right">
+                            @order.ShoppingCartSummary.TotalInclVat EUR
+                        </div>
+                    </div>
+                </button>
+
+                <div id="collapse_@i" class="collapse" aria-labelledby="heading_@i" data-parent="#accordionOrders">
+                    <div class="card-body row">
+                        <div class="col-md-4">
+                            <p class="font-weight-bold mb-0">Customer details</p>
+                            <p class="mb-0">Id: @order.Customer.Id</p>
+                            <p class="mb-0">Name: @order.Customer.FirstName @order.Customer.FamilyName</p>
+
+                            <p class="font-weight-bold mt-2 mb-0">Shipping address</p>
+                            @{
+                                if (string.IsNullOrEmpty(order.StreetShipping))
+                                {
+                                    <p class="mb-0">@order.Customer.Street @order.Customer.HouseNr @order.Customer.HouseBus</p>
+                                    <p class="mb-0">@order.Customer.PostalCode @order.Customer.City</p>
+                                }
+                                else
+                                {
+                                    <p class="mb-0">@order.StreetShipping @order.HouseNrShipping @order.HouseBusShipping</p>
+                                    <p class="mb-0">@order.PostalcodeShipping @order.CityShipping</p>
+                                }
+                            }
+
+                            <p class="font-weight-bold mt-2 mb-0">Billing address</p>
+                            @{
+                                if (string.IsNullOrEmpty(order.Customer.StreetBilling))
+                                {
+                                    <p class="mb-0">@order.Customer.Street @order.Customer.HouseNr @order.Customer.HouseBus</p>
+                                    <p class="mb-0">@order.Customer.PostalCode @order.Customer.City</p>
+                                }
+                                else
+                                {
+                                    <p class="mb-0">@order.Customer.StreetBilling @order.Customer.HouseBusBilling @order.Customer.HouseBusBilling</p>
+                                    <p class="mb-0">@order.Customer.PostalCodeBilling @order.Customer.CityBilling</p>
+                                }
+                            }
+                        </div>
+                        <div class="col-md-4">
+                            <p class="font-weight-bold mb-0">Billing details</p>
+                            <div class="mb-0 col-md-12 col-6 pl-0 d-flex justify-content-between">
+                                <div>Subtotal:</div>
+                                <div>
+                                    @order.ShoppingCartSummary.TotalExVat.ToString("0.00") EUR
+
+                                </div>
+                            </div>
+                            <div class="mb-0 col-md-12 col-6 pl-0 d-flex justify-content-between">
+                                <div>VAT:</div>
+                                <div>
+                                    @order.ShoppingCartSummary.Vat.ToString("0.00") EUR
+                                </div>
+                            </div>
+                            <div class="mb-0 col-md-12 col-6 pl-0 d-flex justify-content-between">
+                                <div>Total:</div>
+                                <div>
+                                    @order.ShoppingCartSummary.TotalInclVat.ToString("0.00") EUR
+
+                                </div>
+                            </div>
+                            <p class="font-weight-bold mb-0">Order details</p>
+                            @foreach (var orderdetail in order.OrderLines)
+                            {
+                                <div class="col-md-12 col-6 pl-0 d-flex justify-content-between">
+                                    <p class="mb-0">
+                                        @orderdetail.Quantity x @orderdetail.Product.Name
+                                    </p>
+                                    <p class="mb-0">
+                                        @orderdetail.OrderLineSubTotal EUR
+                                    </p>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        i++;
+    }
+}

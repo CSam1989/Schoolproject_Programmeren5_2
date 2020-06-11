@@ -1,0 +1,82 @@
+﻿@model Application.Products.Queries.GetProductsQuery.ProductsVm;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12 d-flex justify-content-between px-0">
+        <p>
+            <a asp-action="Create" class="btn btn-secondary mt-1">
+                <i class="fas fa-plus-square"></i>
+            </a>
+        </p>
+        <div class="d-flex">
+            <partial name="_Filtering" , model="@Model.PagSortFilterToReturn"/>
+
+            @*Resets all route parameters*@
+            <a class="btn btn-outline-secondary mb-4 ml-1"asp-controller="Products" asp-action="Index">
+                <i class="fas fa-times-circle"></i>
+            </a>
+        </div>
+    </div>
+
+
+    @if (Model.List.Count == 0)
+    {
+        <h5>No products</h5>
+    }
+    else
+    {
+        <table class="table col-12 table-hover">
+            <thead>
+            <tr>
+                <th>
+                    <a asp-route-CurrentPage="@(Model.PagSortFilterToReturn.CurrentPage)" asp-route-sortby="@Model.PagSortFilterToReturn.ProductSortingModel.SortByName" asp-route-currentFilter="@(Model.PagSortFilterToReturn.CurrentFilter)">
+                        @Html.DisplayNameFor(model => model.List[0].Name)
+                    </a>
+                </th>
+                <th>
+                    <a asp-route-CurrentPage="@(Model.PagSortFilterToReturn.CurrentPage)" asp-route-sortby="@Model.PagSortFilterToReturn.ProductSortingModel.SortByPrice" asp-route-currentFilter="@(Model.PagSortFilterToReturn.CurrentFilter)">
+                        @Html.DisplayNameFor(model => model.List[0].Price)
+                    </a>
+                </th>
+                <th>
+                    <a asp-route-CurrentPage="@(Model.PagSortFilterToReturn.CurrentPage)" asp-route-sortby="@Model.PagSortFilterToReturn.ProductSortingModel.SortByCategory" asp-route-currentFilter="@(Model.PagSortFilterToReturn.CurrentFilter)">
+                        @Html.DisplayNameFor(model => model.List[0].Category)
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.List)
+            {
+                <tr>
+                    <td class="mt-1">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td class="mt-1">
+                        @Html.DisplayFor(modelItem => item.Price) EUR
+                    </td>
+                    <td class="mt-1">
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td class="text-right">
+                        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-outline-secondary" asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <div class="col-12">
+            <partial name="_Pagination" , model="@Model.PagSortFilterToReturn"/>
+        </div>
+    }
+</div>

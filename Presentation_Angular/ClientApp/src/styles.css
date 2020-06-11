@@ -1,0 +1,76 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+@import "../node_modules/alertifyjs/build/css/alertify.min.css";
+
+@import "../node_modules/alertifyjs/build/css/themes/bootstrap.min.css";
+
+/* Provide sufficient contrast against white background */
+
+body {
+  background-color: whitesmoke;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding-bottom: 2.5rem;
+}
+
+html {
+  min-height: 100vh;
+  padding-bottom: 2.5rem;
+  position: relative;
+}
+
+.footer {
+  bottom: 0;
+  line-height: 60px;
+  padding-bottom: 10px;
+  position: absolute;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.my-form-full-width { width: 100%; }
+
+table { width: 100%; }
+
+tr:not(.expanded-row):not(.header-row):hover { background: whitesmoke; }
+
+.no-overflow { overflow: hidden; }
+
+.no-wrap { white-space: nowrap; }
+
+.w-90 { width: 90%; }
+
+.w-95 { width: 95%; }
+
+.card {
+  background: whitesmoke;
+  border-radius: 15px;
+}
+
+.card-green {
+  background: rgba(156, 204, 101, 0.25);
+  border-radius: 15px;
+}
+
+.photo-card {
+  border-radius: 15px 15px 0px 0px;
+  margin-top: 0px;
+}
+
+.photo-card-detail { border-radius: 15px; }
+
+button:focus, button:active:focus, button.active:focus {
+  outline: none !important;
+  outline-style: none !important;
+}
+
+.material-icons.md-48 { font-size: 48px; }
+
+.mat-card-header-text { margin: 0px; }
+
+.custom-dialog-container .mat-dialog-container {
+  border-radius: 15px;
+  max-width: 450px;
+  padding: 0px;
+}

@@ -1,0 +1,45 @@
+#access .access {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.access {
+  line-height: 1.4;
+  max-width: 767px;
+  padding: 0px 15px;
+  width: 100%;
+}
+
+.access .access-401 {
+  height: 150px;
+  line-height: 150px;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.access .access-401 h1 {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background: url('../../../../assets/text.png');
+  background-position: center;
+  background-size: cover;
+  font-size: 120px;
+  font-weight: 900;
+  margin: 0px;
+  padding-bottom: 50px;
+  text-transform: uppercase;
+}
+
+.access h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.access p {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}

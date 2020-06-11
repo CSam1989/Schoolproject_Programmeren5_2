@@ -1,0 +1,118 @@
+<div class="row">
+  <div class="col text-right">
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter(searchValue)"
+        [(ngModel)]="searchValue"/>
+      <button
+        mat-button
+        *ngIf="searchValue"
+        matSuffix
+        mat-icon-button
+        (click)="clearSearchField()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="mat-elevation-z8 mt-1">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="customer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-weight-bold">
+        Customer
+      </th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.customer.firstName | titlecase }}
+        {{ order.customer.familyName | titlecase }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderId">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        class="font-weight-bold"
+        mat-sort-header>
+        Order Nr.
+      </th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.id }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderDate">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        class="font-weight-bold"
+        mat-sort-header>
+        Order Date
+      </th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.orderDate | date: "dd/MM/yy" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalCount">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        class="font-weight-bold"
+        mat-sort-header>
+        Total Amount
+      </th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.orderSummary.totalCount }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalPrice">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        class="font-weight-bold"
+        mat-sort-header>
+        Total Price
+      </th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.orderSummary.totalInclVat | currency: 'EUR' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        class="font-weight-bold"
+        mat-sort-header>
+        Is Payed
+      </th>
+      <td mat-cell *matCellDef="let order">
+        <button mat-mini-fab color="primary" [disabled]="order.isPayed" (click)="updatePaid(order)">
+          <mat-icon>payment</mat-icon>
+        </button>
+
+        <button mat-icon-button color="primary" (click)="delete(order)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      class="header-row"
+      *matHeaderRowDef="columnsToDisplay">
+    </tr>
+    <tr
+      mat-row
+      *matRowDef="let element; columns: columnsToDisplay">
+    </tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[10, 20, 50]"
+    showFirstLastButtons>
+  </mat-paginator>
+</div>

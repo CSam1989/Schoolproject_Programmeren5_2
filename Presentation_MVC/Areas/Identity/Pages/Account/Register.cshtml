@@ -1,0 +1,109 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-8 col-sm-12">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="needs-validation">
+            <h4>Create a new account.</h4>
+            <hr/>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <input asp-for="Input.FirstName" class="form-control" placeholder="First name"/>
+                </div>
+                <div class="form-group col">
+                    <input asp-for="Input.FamilyName" class="form-control" placeholder="Last name"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="Input.Username" class="form-control" placeholder="Username"/>
+            </div>
+            <div class="form-group">
+                <input asp-for="Input.Email" class="form-control" placeholder="Email"/>
+            </div>
+            <div class="form-group">
+                <input asp-for="Input.Password" class="form-control" placeholder="Password"/>
+            </div>
+            <div class="form-group">
+                <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password"/>
+            </div>
+
+            <div class="form-group">
+                <hr/>
+                <h5>Shipping address</h5>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-7">
+                    <input asp-for="Input.Street" class="form-control" placeholder="Street"/>
+                </div>
+
+                <div class="form-group col">
+                    <input asp-for="Input.HouseNr" class="form-control" placeholder="Nr."/>
+                </div>
+
+                <div class="form-group col">
+                    <input asp-for="Input.HouseBus" class="form-control" placeholder="App."/>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-4">
+                    <input asp-for="Input.PostalCode" class="form-control" placeholder="Postal"/>
+                </div>
+
+                <div class="form-group col">
+                    <input asp-for="Input.City" class="form-control" placeholder="City"/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <hr/>
+                <h5>Billing address (Leave blank if same as shipping)</h5>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-7">
+                    <input asp-for="Input.StreetBilling" class="form-control" placeholder="Street"/>
+                </div>
+
+                <div class="form-group col">
+                    <input asp-for="Input.HouseNrBilling" class="form-control" placeholder="Nr."/>
+                </div>
+
+                <div class="form-group col">
+                    <input asp-for="Input.HouseBusBilling" class="form-control" placeholder="App."/>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-4">
+                    <input asp-for="Input.PostalCodeBilling" class="form-control" placeholder="Postal"/>
+                </div>
+
+                <div class="form-group col">
+                    <input asp-for="Input.CityBilling" class="form-control" placeholder="City"/>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <button type="submit" class="btn btn-secondary col-12">Register</button>
+                </div>
+                <div class="form-group col">
+                    <a type="button" class="btn btn-outline-secondary col-12">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

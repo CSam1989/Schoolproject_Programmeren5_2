@@ -1,0 +1,61 @@
+﻿@using Presentation_MVC.Cart
+@inject IShoppingCart ShoppingCart;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - Webshop</title>
+    @* Bootstrap theme (enkel css wordt hier aangepast) *@
+    @* Check  https://bootswatch.com/ *@
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-ABdnjefqVzESm+f9z9hcqx2cvwvDNjfrwfW5Le9138qHCMGlNmWawyn/tt4jR4ba" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css"/>
+    <link rel="stylesheet" href="~/css/site.css"/>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sam's Webshop</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex">
+                <ul class="navbar-nav flex-grow-1 flex-sm-row-reverse">
+                    <partial name="_LoginPartial"/>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex" asp-controller="ShoppingCart" asp-action="Index">
+                            <i class="fas fa-shopping-cart fa-2x"></i>
+                            <h5>
+                                <span class="badge badge-light ml-1">@ShoppingCart.GetCount()</span>
+                            </h5>
+                            <span class="sr-only">Items in shoppingcart</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2020 - Sam Ceustermans
+        - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        - <a asp-area="" asp-controller="Home" asp-action="About">About</a>
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@RenderSection("Scripts", false)
+</body>
+</html>

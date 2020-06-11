@@ -1,0 +1,19 @@
+﻿<script>
+    function changeTitleFromInput(value) {
+        if (value !== "") {
+            document.getElementById("title").innerHTML = value;
+        } else {
+            document.getElementById("title").innerHTML = "product";
+        }
+    }
+</script>
+
+<script>
+    function changeImgFromInput(value) {
+        if (value.includes('http')) {
+            document.getElementById("productImg").src = value;
+        } else {
+            document.getElementById("productImg").src = "../../img/default.jpg";
+        }
+    }
+</script>

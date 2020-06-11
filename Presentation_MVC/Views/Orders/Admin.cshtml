@@ -1,0 +1,116 @@
+﻿@model Application.Orders.Queries.GetOrdersQuery.OrdersVm
+
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12 d-flex justify-content-end px-0">
+        <partial name="_Filtering" , model="@Model.PagSortFilterToReturn"/>
+
+        @*Resets route parameters*@
+        <a class="btn btn-outline-secondary mb-4 ml-1" asp-controller="Orders" asp-action="Admin">
+            <i class="fas fa-times-circle"></i>
+        </a>
+    </div>
+    @if (Model.List.Count == 0)
+    {
+        <h5>No Orders</h5>
+    }
+    else
+    {
+        <table class="table col-12 table-hover">
+            <thead>
+            <tr>
+                <th>
+                    <a asp-route-CurrentPage="@(Model.PagSortFilterToReturn.CurrentPage)" asp-route-sortby="@Model.PagSortFilterToReturn.OrderSortingModel.SortByCustomer" asp-route-currentFilter="@(Model.PagSortFilterToReturn.CurrentFilter)">
+                        @Html.DisplayNameFor(model => model.List[0].Customer)
+                    </a>
+                </th>
+                <th>
+                    <a asp-route-CurrentPage="@(Model.PagSortFilterToReturn.CurrentPage)" asp-route-sortby="@Model.PagSortFilterToReturn.OrderSortingModel.SortByOrderId" asp-route-currentFilter="@(Model.PagSortFilterToReturn.CurrentFilter)">
+                        @Html.DisplayNameFor(model => model.List[0].Id)
+                    </a>
+                </th>
+                <th>
+                    <a asp-route-CurrentPage="@(Model.PagSortFilterToReturn.CurrentPage)" asp-route-sortby="@Model.PagSortFilterToReturn.OrderSortingModel.SortByOrderDate" asp-route-currentFilter="@(Model.PagSortFilterToReturn.CurrentFilter)">
+                        @Html.DisplayNameFor(model => model.List[0].OrderDate)
+                    </a>
+                </th>
+                <th>
+                    <a asp-route-CurrentPage="@(Model.PagSortFilterToReturn.CurrentPage)" asp-route-sortby="@Model.PagSortFilterToReturn.OrderSortingModel.SortByTotalAmount" asp-route-currentFilter="@(Model.PagSortFilterToReturn.CurrentFilter)">
+                        @Html.DisplayNameFor(model => model.List[0].OrderSummary.TotalCount)
+                    </a>
+                    @*@Html.DisplayNameFor(model => model.List[0].OrderSummary.TotalCount)*@
+                </th>
+                <th>
+                    <a asp-route-CurrentPage="@(Model.PagSortFilterToReturn.CurrentPage)" asp-route-sortby="@Model.PagSortFilterToReturn.OrderSortingModel.SortByTotalPrice" asp-route-currentFilter="@(Model.PagSortFilterToReturn.CurrentFilter)">
+                        @Html.DisplayNameFor(model => model.List[0].OrderSummary.TotalInclVat)
+                    </a>
+                    @*@Html.DisplayNameFor(model => model.List[0].OrderSummary.TotalInclVat)*@
+                </th>
+                <th>
+                    <a asp-route-CurrentPage="@(Model.PagSortFilterToReturn.CurrentPage)" asp-route-sortby="@Model.PagSortFilterToReturn.OrderSortingModel.SortByIsPayed" asp-route-currentFilter="@(Model.PagSortFilterToReturn.CurrentFilter)">
+                        @Html.DisplayNameFor(model => model.List[0].IsPayed)
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.List)
+            {
+                <tr>
+                    <td class="mt-1">
+                        @Html.DisplayFor(modelItem => item.Customer.FirstName)
+                        @Html.DisplayFor(modelItem => item.Customer.FamilyName)
+
+                    </td>
+                    <td class="mt-1">
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td class="mt-1">
+                        @Html.DisplayFor(modelItem => item.OrderDate)
+                    </td>
+                    <td class="mt-1">
+                        @Html.DisplayFor(modelItem => item.OrderSummary.TotalCount)
+                    </td>
+                    <td class="mt-1">
+                        @Html.DisplayFor(modelItem => item.OrderSummary.TotalInclVat) EUR
+                    </td>
+                    <td class="mt-1">
+                        @Html.DisplayFor(modelItem => item.IsPayed)
+                    </td>
+                    <td class="text-right">
+                        @{
+                            if (item.IsPayed)
+                            {
+                                <button class="btn btn-secondary" disabled="disabled">
+                                    <i class="fab fa-cc-amazon-pay fa-lg"></i>
+                                </button>
+                            }
+                            else
+                            {
+                                <a class="btn btn-secondary" asp-action="EditIsPayed" asp-route-id="@item.Id"
+                                   asp-route-isPayed="true"
+                                   asp-route-CurrentPage="@(Model.PagSortFilterToReturn.CurrentPage)"
+                                   asp-route-sortby="@Model.PagSortFilterToReturn.SortBy"
+                                   asp-route-currentFilter="@(Model.PagSortFilterToReturn.CurrentFilter)">
+                                    <i class="fab fa-cc-amazon-pay fa-lg"></i>
+                                </a>
+                            }
+                        }
+                        <a class="btn btn-outline-secondary" asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <div class="col-12">
+            <partial name="_Pagination", model="@Model.PagSortFilterToReturn"/>
+        </div>
+    }
+</div>

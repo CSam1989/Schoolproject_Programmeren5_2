@@ -1,0 +1,76 @@
+﻿@model Application.Orders.Commands.CreateOrder.CreateOrderCommand;
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-8 col-12">
+
+        <h3>Customer Information</h3>
+        <p>@Model.Customer.FirstName @Model.Customer.FamilyName</p>
+        <div class="d-flex">
+            <div>
+                <h5>Shipping address</h5>
+                <p class="mb-0">@Model.Customer.Street @Model.Customer.HouseNr @Model.Customer.HouseBus</p>
+                <p>@Model.Customer.PostalCode @Model.Customer.City</p>
+            </div>
+            <div class="ml-5">
+                <h5>Billing address</h5>
+                @{
+                    if (string.IsNullOrEmpty(Model.Customer.StreetBilling))
+                    {
+                        <p class="mb-0">@Model.Customer.Street @Model.Customer.HouseNr @Model.Customer.HouseBus</p>
+                        <p>@Model.Customer.PostalCode @Model.Customer.City</p>
+                    }
+                    else
+                    {
+                        <p class="mb-0">@Model.Customer.Street @Model.Customer.HouseNr @Model.Customer.HouseBus</p>
+                        <p>@Model.Customer.PostalCode @Model.Customer.City</p>
+                    }
+                }
+            </div>
+        </div>
+        <hr/>
+        <h4>Change shipping address</h4>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-action="Create">
+            <input asp-for="@Model.CustomerId" hidden="hidden"/>
+            <div class="form-row">
+                <div class="form-group col-7">
+                    <input asp-for="@Model.StreetShipping" class="form-control" placeholder="Street"/>
+                </div>
+
+                <div class="form-group col">
+                    <input asp-for="@Model.HouseNrShipping" class="form-control" placeholder="Nr."/>
+                </div>
+
+                <div class="form-group col">
+                    <input asp-for="@Model.HouseBusShipping" class="form-control" placeholder="App."/>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-4">
+                    <input asp-for="@Model.PostalcodeShipping" class="form-control" placeholder="Postal"/>
+                </div>
+
+                <div class="form-group col">
+                    <input asp-for="@Model.CityShipping" class="form-control" placeholder="City"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-secondary"/>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-4 col-12 mt-lg-4 px-lg-2 px-0">
+        <partial name="_OrderSummary"/>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="ShoppingCart" asp-action="Index">Back to List</a>
+</div>

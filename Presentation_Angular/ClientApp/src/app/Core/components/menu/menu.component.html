@@ -1,0 +1,67 @@
+<mat-toolbar color="primary">
+  <div class="container d-flex justify-content-between">
+    <button
+      mat-icon-button
+      disableRipple="true"
+      class="h4 navbar-pointer"
+      routerLink="/home">
+      Sam's webshop
+    </button>
+
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+
+    <button mat-icon-button disableRipple="true" routerLink="/shoppingcart">
+      <mat-icon
+        class="navbar-pointer pr-1 mr-4 mt-1"
+        [matBadge]="shoppingCart.totalCount"
+        matBadgeSize="medium"
+        matBadgeOverlap="false"
+        matBadgeColor="accent"
+        matBadgePosition="after">
+        shopping_cart
+      </mat-icon
+      >
+    </button>
+
+    <button
+      *ngIf="!isLoggedIn()"
+      mat-button
+      disableRipple="true"
+      (click)="loginPage()">
+      Login
+    </button>
+    <button
+      *ngIf="isLoggedIn()"
+      mat-button
+      disableRipple="true"
+      [matMenuTriggerFor]="menu">
+      Hello {{ Username | titlecase }}
+      <mat-icon class="p-0">arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button
+        *ngIf="User?.role != 'Admin'"
+        mat-menu-item
+        routerLink="/orders/previous">
+        My Orders
+      </button>
+      <button
+        *ngIf="User?.role == 'Admin'"
+        mat-menu-item
+        routerLink="/admin/orders">
+        Manage Orders
+      </button>
+      <button
+        *ngIf="User?.role == 'Admin'"
+        mat-menu-item
+        routerLink="/admin/products">
+        Manage Products
+      </button>
+      <button mat-menu-item routerLink="/edit/account">
+        Manage Account
+      </button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

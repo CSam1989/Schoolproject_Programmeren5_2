@@ -1,0 +1,20 @@
+﻿@model Application.Common.Models.PagSortFilterToReturnDto;
+
+<form method="get">
+    <input type="hidden" name="CurrentPage" value="@(Model.CurrentPage)"/>
+    <input type="hidden" name="sortby" value="@(Model.SortBy)"/>
+
+    <div class=" mb-4 input-group">
+        @*<select asp-items="Html.GetEnumSelectList<Category>()" name="categoryFilter" class="form-control input-group-prepend">
+                <option selected="selected" value="">Filter by Category</option>
+            </select>*@
+        <div class="input-group-prepend">
+            <input type="text" asp-for="CurrentFilter" name="SearchString" class="form-control" placeholder="Search"/>
+        </div>
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-secondary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</form>

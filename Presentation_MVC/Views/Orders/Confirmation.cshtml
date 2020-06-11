@@ -1,0 +1,104 @@
+﻿@model Application.Orders.Queries.GetOrderByIdQuery.OrderByIdVm;
+@{
+    ViewData["Title"] = "Confirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-8 col-12">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <h3>
+                    <i class="fas fa-check-circle fa-2x"></i>
+                </h3>
+                <div class="ml-3">
+                    <h5 class="mb-0">Order @Model.Order.Id</h5>
+                    <h3>Thank you, @Model.Order.Customer.FirstName</h3>
+                </div>
+            </div>
+            <div>
+                <a class="btn btn-secondary d-print-none" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-backspace"></i>
+                </a>
+                <button class="btn btn-secondary d-print-none" onclick="window.print()">
+                    <i class="fas fa-print"></i>
+                </button>
+            </div>
+        </div>
+
+
+        <hr/>
+
+        <p>Your order has been confirmed</p>
+        <p>We have received your order and will ship it as soon as possible.</p>
+
+        <hr/>
+
+        <h3>Customer Information</h3>
+        <p>@Model.Order.Customer.FirstName @Model.Order.Customer.FamilyName</p>
+        <div class="row">
+            <div class="col-md-5 col-12">
+                <h5>Shipping address</h5>
+                @{
+                    if (string.IsNullOrEmpty(Model.Order.StreetShipping))
+                    {
+                        <p class="mb-0">@Model.Order.Customer.Street @Model.Order.Customer.HouseNr @Model.Order.Customer.HouseBus</p>
+                        <p>@Model.Order.Customer.PostalCode @Model.Order.Customer.City</p>
+                    }
+                    else
+                    {
+                        <p class="mb-0">@Model.Order.StreetShipping @Model.Order.HouseNrShipping @Model.Order.HouseBusShipping</p>
+                        <p>@Model.Order.PostalcodeShipping @Model.Order.CityShipping</p>
+                    }
+                }
+            </div>
+            <div class="col-md-5 col-12">
+                <h5>Billing address</h5>
+                @{
+                    if (string.IsNullOrEmpty(Model.Order.Customer.StreetBilling))
+                    {
+                        <p class="mb-0">@Model.Order.Customer.Street @Model.Order.Customer.HouseNr @Model.Order.Customer.HouseBus</p>
+                        <p>@Model.Order.Customer.PostalCode @Model.Order.Customer.City</p>
+                    }
+                    else
+                    {
+                        <p class="mb-0">@Model.Order.Customer.Street @Model.Order.Customer.HouseNr @Model.Order.Customer.HouseBus</p>
+                        <p>@Model.Order.Customer.PostalCode @Model.Order.Customer.City</p>
+                    }
+                }
+            </div>
+            <div class="col-md-5 col-12">
+                <h5>Shipping method</h5>
+                <p>DHL (estimated shipping time is 3 to 6 work days)</p>
+            </div>
+            <div class="col-md-5 col-12">
+                <h5>Billing method</h5>
+                <p>Bank transfer</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-4 col-12">
+        @* Zelfde als ShoppingCart Summary, verschil hier is dat de gegevens komen van DB*@
+        @* Shopping Cart Summary haalt gegevens van SessionStorage*@
+        <div class="card">
+            <h5 class="card-header">
+                Summary (@Model.OrderSummary.TotalCount items)
+            </h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between">
+                    <p class="font-weight-bold mb-0">Subtotal</p>
+                    <p class="mb-0">@Model.OrderSummary.TotalExVat.ToString("0.00") EUR</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <p class="font-weight-bold mb-0">VAT</p>
+                    <p class="mb-0">@Model.OrderSummary.Vat.ToString("0.00") EUR</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <p class="font-weight-bold mb-0">Total</p>
+                    <p class="mb-0">@Model.OrderSummary.TotalInclVat.ToString("0.00") EUR</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+<form [formGroup]="productForm">
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="w-100">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required/>
+        <mat-error *ngIf="form.name.hasError('required')">
+          Required
+        </mat-error>
+        <mat-error *ngIf="form.name.hasError('maxlength')">
+          Max 50 characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100">
+        <mat-label>Price</mat-label>
+        <mat-icon matPrefix class="icon">euro_symbol</mat-icon>
+        <input
+          matInput
+          type="number"
+          step="0.01"
+          formControlName="price"
+          required/>
+        <mat-error *ngIf="form.price.hasError('required')">
+          Required
+        </mat-error>
+        <mat-error *ngIf="form.price.hasError('min')">
+          Can't be negative
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category" required>
+          <mat-option [value]="null" selected></mat-option>
+          <mat-option *ngFor="let key of categoryKeys" [value]="key">
+            {{ category[key] }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.category.hasError('required')">
+          Required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100">
+        <mat-label>Description</mat-label>
+        <textarea matInput autosize formControlName="description"></textarea>
+      </mat-form-field>
+
+      <div class="form-row mb-2">
+        <button
+          mat-raised-button
+          *ngIf="productId === 0"
+          color="primary"
+          type="button"
+          class="col"
+          (click)="create(productForm.value)"
+          [disabled]="productForm.invalid">
+          Add
+        </button>
+        <button
+          mat-raised-button
+          *ngIf="productId !== 0"
+          color="primary"
+          type="button"
+          class="col"
+          (click)="update(productForm.value)"
+          [disabled]="productForm.invalid">
+          Update
+        </button>
+        <button
+          mat-stroked-button
+          color="primary"
+          type="button"
+          class="col-6 ml-1"
+          (click)="cancel()">
+          Cancel
+        </button>
+      </div>
+    </div>
+    <div class="col">
+      <input hidden formControlName="photoUrl"/>
+      <input hidden formControlName="photoId"/>
+
+      <div class="form-row mb-1">
+        <button
+          type="button"
+          mat-raised-button
+          color="primary"
+          class="col-6"
+          (click)="fileInput.click()">
+          Choose image
+        </button>
+        <button
+          type="button"
+          mat-stroked-button
+          color="primary"
+          class="col ml-1"
+          (click)="onRemove(form.photoId)"
+          [disabled]="
+            form.photoId.value == null ||
+            form.photoId.value == ''
+          ">
+          Remove
+        </button>
+      </div>
+
+      <input
+        hidden
+        #fileInput
+        type="file"
+        id="file"
+        accept="image/*"
+        (change)="onFileChanged($event)"/>
+      <label #fileLabel class="ml-1">{{ fileInput.value.substring(12) }}</label>
+
+      <img src="{{ photoUrl }}" class="photo-card mat-elevation-z8 w-95"/>
+    </div>
+  </div>
+</form>

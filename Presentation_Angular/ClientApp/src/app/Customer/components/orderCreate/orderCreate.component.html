@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-md-8">
+    <app-customerDetails [Customer]="customer"></app-customerDetails>
+
+    <mat-card class="card my-2 mat-elevation-z8">
+      <mat-card-header>
+        <h3>Change shipping address</h3>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="mt-2">
+        <form
+          [formGroup]="shippingForm">
+          <div class="form-row">
+            <mat-form-field class="col-7">
+              <mat-label>Street</mat-label>
+              <input matInput formControlName="streetShipping"/>
+              <mat-error *ngIf="form.streetShipping.hasError('maxlength')">
+                Max 100 characters
+              </mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field class="col">
+              <mat-label>House Nr.</mat-label>
+              <input matInput formControlName="houseNrShipping"/>
+              <mat-error *ngIf="form.houseNrShipping.hasError('maxlength')">
+                Max 5 characters
+              </mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field class="col">
+              <mat-label>App.</mat-label>
+              <input matInput formControlName="houseBusShipping"/>
+              <mat-error *ngIf="form.houseBusShipping.hasError('maxlength')">
+                Max 4 characters
+              </mat-error
+              >
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field class="col-4">
+              <mat-label>Postal</mat-label>
+              <input matInput formControlName="postalcodeShipping"/>
+              <mat-error *ngIf="form.postalcodeShipping.hasError('maxlength')">
+                Max 6 characters
+              </mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field class="col">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="cityShipping"/>
+              <mat-error *ngIf="form.cityShipping.hasError('maxlength')">
+                Max 100 characters
+              </mat-error
+              >
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+    <div class="form-row">
+      <button mat-raised-button color="primary" class="col mt-1" (click)="createOrder()">Order</button>
+      <button mat-stroked-button color="primary" class="col ml-1 mt-1" (click)="cancel()">Cancel</button>
+
+    </div>
+
+  </div>
+  <div class="col">
+    <app-summary [TotalPrice]="shoppingCartService.totalPrice"></app-summary>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-lg-8 col-12">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex">
+        <h1>
+          <mat-icon class="material-icons md-48">check_circle</mat-icon>
+        </h1>
+        <div class="ml-5">
+          <h5 class="mb-0">Order {{ order.id }}</h5>
+          <h3>Thank you, {{ order.customer.firstName }}</h3>
+        </div>
+      </div>
+      <div>
+        <button
+          mat-icon-button
+          color="primary"
+          class="d-print-none"
+          [routerLink]="['/home']">
+          <mat-icon>keyboard_backspace</mat-icon>
+        </button>
+        <button
+          mat-fab
+          color="primary"
+          class="d-print-none"
+          onclick="window.print()">
+          <mat-icon>print</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <p>Your order has been confirmed</p>
+    <p>We have received your order and will ship it as soon as possible.</p>
+
+    <mat-divider></mat-divider>
+
+    <h3>Customer Information</h3>
+    <p>{{ order.customer.firstName }} {{ order.customer.familyName }}</p>
+    <div class="row">
+      <div class="col-md-5 col-12">
+        <app-shippingBillingAddress [Order]="order"></app-shippingBillingAddress>
+      </div>
+      <div class="col-md-5 col-12">
+        <h5>Shipping method</h5>
+        <p>DHL (estimated shipping time is 3 to 6 work days)</p>
+
+        <h5>Billing method</h5>
+        <p>Bank transfer</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-12">
+    <app-summary [TotalPrice]="order.orderSummary.totalInclVat"></app-summary>
+  </div>
+</div>

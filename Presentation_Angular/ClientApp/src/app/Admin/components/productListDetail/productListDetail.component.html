@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-6 col-12">
+    <mat-list>
+      <mat-list-item role="listitem">
+        <span class="font-weight-bold">Name:</span> &nbsp; {{ Product.name }}
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <span class="font-weight-bold">Category:</span> &nbsp;
+        {{ Product.category }}
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <span class="font-weight-bold">Price:</span> &nbsp;
+        {{ Product.price | currency: "EUR" }}
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <span class="font-weight-bold">Description:</span>
+      </mat-list-item>
+      <p style="font: inherit" class="ml-3">
+        {{Product.description || '/'}}
+      </p>
+    </mat-list>
+    <div class="form-row col-md-12 col-6 my-2">
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        class="col-6 mx-1"
+        [routerLink]="['/admin/products/update/' + Product.id]">
+        Update
+      </button>
+      <button
+        mat-stroked-button
+        color="primary"
+        type="button"
+        class="col"
+        (click)="delete(Product)">
+        Delete
+      </button>
+    </div>
+  </div>
+  <div class="col mb-2">
+    <mat-list>
+      <mat-list-item role="listitem">Photo</mat-list-item>
+      <img
+        src="{{ Product.photoUrl || '../../../../../../assets/default.jpg' }}"
+        class="photo-card mat-elevation-z8 w-90"/>
+    </mat-list>
+  </div>
+</div>

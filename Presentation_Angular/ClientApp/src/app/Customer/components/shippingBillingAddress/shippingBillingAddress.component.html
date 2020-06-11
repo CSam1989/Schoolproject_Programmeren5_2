@@ -1,0 +1,45 @@
+<h5>Shipping address</h5>
+<div *ngIf="Order.streetShipping; else customerShipping">
+  <p>
+    {{ Order.streetShipping | titlecase }}
+    {{ Order.houseNrShipping }}
+    <span *ngIf="Order.houseBusShipping">
+      /{{ Order.houseBusShipping }}
+    </span
+    >
+  </p>
+  <p>
+    {{ Order.postalcodeShipping }}
+    {{ Order.cityShipping | titlecase }}
+  </p>
+</div>
+<ng-template #customerShipping>
+  <p>
+    {{ Order.customer.street | titlecase }}
+    {{ Order.customer.houseNr }}
+    <span *ngIf="Order.customer.houseBus">
+      /{{ Order.customer.houseBus }}
+    </span
+    >
+  </p>
+  <p>
+    {{ Order.customer.postalCode }}
+    {{ Order.customer.city | titlecase }}
+  </p>
+</ng-template>
+
+<h5 class="mt-2">Billing address</h5>
+<div *ngIf="Order.customer.streetBilling; else customerShipping">
+  <p>
+    {{ Order.customer.streetBilling | titlecase }}
+    {{ Order.customer.houseNrBilling }}
+    <span *ngIf="Order.customer.houseBusBilling">
+      /{{ Order.customer.houseBusBilling }}
+    </span
+    >
+  </p>
+  <p>
+    {{ Order.customer.postalCodeBilling }}
+    {{ Order.customer.cityBilling | titlecase }}
+  </p>
+</div>
